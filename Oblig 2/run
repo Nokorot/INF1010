@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd Bilhierarki/bin
+java Main "$@"
