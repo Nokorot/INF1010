@@ -17,6 +17,7 @@ public class Labyrint {
 	private Labyrint() {
 	}
 	
+	@SuppressWarnings("resource")
 	public static Labyrint readFromFile(String fil) throws FileNotFoundException {
 		Labyrint l = new Labyrint();
 		

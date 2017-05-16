@@ -1,7 +1,5 @@
 package o3;
 
-import o5.Rute;
-
 public class OrdnetLenkeliste<T extends Comparable<T>> extends Stabel<T> {
 	
 	public void settInn(T element) {
@@ -27,7 +25,7 @@ public class OrdnetLenkeliste<T extends Comparable<T>> extends Stabel<T> {
 
 	public T get(int i) {
 		Par<T> current = topp;
- 		for (int j = 0; j < i; i++)
+ 		for (int j = 0; j < i; j++)
  			current = current.next;
 		return current.value;
 	}

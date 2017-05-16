@@ -66,7 +66,6 @@ public abstract class Rute {
 		
 		if (this instanceof Aapning){
 			utveier.settInn(new UtVei(vei));
-			return utveier;
 		}
 		for (Rute nabo : naboer())
 			if (nabo.isOpen() && !vei.contains(nabo))
