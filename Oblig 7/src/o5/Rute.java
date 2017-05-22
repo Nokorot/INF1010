@@ -2,21 +2,40 @@ package o5;
 import o3.*;
 import o5.Labyrint.UtVei;
 
-public abstract class Rute {
+public class Rute {
+
+	public static enum TileType {
+		Black('#', true),
+		White(' ', false);
+		
+		private char symbol;
+		private boolean solid;
+		
+		TileType(char symbol, boolean solid) {
+			this.symbol = symbol;
+			this.solid = solid;
+		}
+	}
 	
 	private Labyrint labyrint;
 	private int x, y;
+	public TileType tileType;
 	
-	public Rute(Labyrint labyrint, int x, int y) {
+	boolean isSurrounded = true;
+	
+	public Rute(Labyrint labyrint, TileType tileType, int x, int y) {
 		this.labyrint = labyrint;
+		this.tileType = tileType;
 		this.x = x;
 		this.y = y;
 	}
 	
-	public abstract char symbol();
+	public char symbol() {
+		return tileType.symbol;
+	}
 	
-	public boolean isOpen(){
-		return true;
+	public boolean isSolid(){
+		return tileType.solid;
 	}
 
 	public int X() {
@@ -68,7 +87,7 @@ public abstract class Rute {
 			utveier.settInn(new UtVei(vei));
 		}
 		for (Rute nabo : naboer())
-			if (nabo.isOpen() && !vei.contains(nabo))
+			if (!nabo.isSolid() && !vei.contains(nabo))
 				utveier = nabo.solve(utveier, vei);
 		
 		vei.pop();

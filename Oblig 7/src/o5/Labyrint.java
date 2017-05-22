@@ -3,9 +3,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import javafx.concurrent.WorkerStateEvent;
 import o3.Koe;
 import o3.OrdnetLenkeliste;
 import o3.Stabel;
+import o5.Rute.TileType;
 
 public class Labyrint {
 
@@ -16,6 +18,26 @@ public class Labyrint {
 	
 	private Labyrint() {
 	}
+	
+	public Labyrint(int width, int height){
+		this.labyrint = new Rute[width][height];
+		this.width = width;
+		this.height = height;
+				
+		for (int j = 0; j < height; j++){
+			for (int i = 0; i < width; i++){
+				this.labyrint[i][j] = new Rute(this, TileType.Black, i, j);
+				if (i == 0 || i == width-1 || j == 0 || j == height-1)
+					this.labyrint[i][j].isSurrounded = false;
+			}
+		}
+	}
+	
+//	public Labyrint(Rute[][] labyrint) {
+//		this.labyrint = labyrint;
+//		this.width = labyrint[0].length;
+//		this.height = labyrint.length;
+//	}
 	
 	@SuppressWarnings("resource")
 	public static Labyrint readFromFile(String fil) throws FileNotFoundException {
@@ -62,7 +84,6 @@ public class Labyrint {
 			}
 			backgrodnd[(y + 1) * (this.width+1) - 1] = '\n';
 		}
-		
 		
 		for (Rute r : solution){
 			backgrodnd[r.X() + r.Y() * (this.width+1)] = '-';
